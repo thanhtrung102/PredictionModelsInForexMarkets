@@ -61,22 +61,22 @@ def run(train_X, valid_X, test_X, train_Y, valid_Y, test_Y, epochs, batch_size,l
 		best_factor = np.sqrt(mse_min) * (1-corr_max)
 		if factor < best_factor:
 			model_json = model.to_json()
-			with open("Models/modelTCNconfidence.json", "w+") as json_file:
+			with open("/workspaces/PredictionModelsInForexMarkets/Models/modelTCNconfidence.json", "w+") as json_file:
 				json_file.write(model_json)
 
-			model.save_weights("Models/modelTCNconfidence.h5")
-			with open("Models/BestTCNconfidence.txt","w+") as bestFile:
+			model.save_weights("/workspaces/PredictionModelsInForexMarkets/Models/modelTCNconfidence.h5")
+			with open("/workspaces/PredictionModelsInForexMarkets/Models/BestTCNconfidence.txt","w+") as bestFile:
 				bestFile.write("Epochs: {}\nBatch Size: {}\nLearning Rate: {}Number of Channels:{}\nNumber of Filters:{}\nKernelSize: {}\nAdaptive Learning Rate: Yes".format(epochs, batch_size,lr, num_channel, nb_filter, 3))
 	return preds, mse, corr
 
 def runLoadedModel(test_X,test_Y=None):
 	# load json and create model
-	json_file = open('Models/modelTCNconfidence.json', 'r')
+	json_file = open('/workspaces/PredictionModelsInForexMarkets/Models/Trials/modelTCNconfidence.json', 'r')
 	loaded_model_json = json_file.read()
 	json_file.close()
 	loaded_model = model_from_json(loaded_model_json)
 	# load weights into new model
-	loaded_model.load_weights('Models/modelTCNconfidence.h5')
+	loaded_model.load_weights('/workspaces/PredictionModelsInForexMarkets/Models/Trials/modelTCNconfidence.h5')
 	#loaded_model.compile(loss='mse', optimizer='adam', metrics=['mse'])
 	#score = loaded_model.evaluate(test_X,test_Y, verbose=0)
 	preds = loaded_model.predict(test_X)

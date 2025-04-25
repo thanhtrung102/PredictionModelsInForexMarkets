@@ -141,11 +141,11 @@ def run(train_X, valid_X, test_X, train_Y, valid_Y, test_Y, epochs, batch_size,l
 	
 	if mse < mse_min:
 		model_json = model.to_json()
-		with open("Models/modelTCN.json", "w+") as json_file:
+		with open("/workspaces/PredictionModelsInForexMarkets/Models/modelTCN.json", "w+") as json_file:
 			json_file.write(model_json)
 		
-		model.save_weights("Models/modelTCN.h5")
-		with open("Models/BestTCN.txt","w+") as bestFile:
+		model.save_weights("/workspaces/PredictionModelsInForexMarkets/Models/modelTCN.h5")
+		with open("/workspaces/PredictionModelsInForexMarkets/Models/BestTCN.txt","w+") as bestFile:
 			bestFile.write("Epochs: {}\nBatch Size: {}\nLearning Rate: {}Number of Channels:{}\nNumber of Filters:{}\nKernelSize: {}\nAdaptive Learning Rate: Yes".format(epochs, batch_size,learning_rate, num_channel, nb_filter, 3))
 		
 	return predicted_labels, mse
